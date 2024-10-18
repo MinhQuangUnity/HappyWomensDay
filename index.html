@@ -13,6 +13,7 @@
             height: 100vh;
             background-color: #fae1dd;
             margin: 0;
+            flex-direction: column;
         }
 
         .container {
@@ -71,11 +72,11 @@
         }
 
         .card.open {
-            top: -300px; /* Đẩy lá thư ra khỏi phong bì */
+            top: -300px;
             left: -25px;
-            transform: rotateY(180deg); /* Lật ngược lá thư */
-            width: 350px; /* Tăng chiều rộng sau khi mở */
-            height: 300px; /* Tăng chiều cao sau khi mở */
+            transform: rotateY(180deg);
+            width: 350px;
+            height: 300px;
         }
 
         .card:before {
@@ -91,7 +92,7 @@
         }
 
         .card.open:before {
-            width: 320px; /* Điều chỉnh lại đường viền khi mở */
+            width: 320px;
             height: 270px;
         }
 
@@ -103,12 +104,12 @@
             color: #003049;
             transition: transform 1s ease;
             margin-bottom: 20px;
-            padding-left: 17px; /* Thụt lề trái */
-            padding-right: 17px; /* Thụt lề phải */
+            padding-left: 17px;
+            padding-right: 17px;
         }
 
         .card.open .text {
-            transform: rotateY(180deg); /* Lật ngược lại văn bản */
+            transform: rotateY(180deg);
         }
 
         .heart {
@@ -255,6 +256,30 @@
                 transform: scaleX(0.85);
             }
         }
+
+        /* Thêm CSS cho dòng chữ mờ */
+        .hint {
+			font-family: 'Dancing Script', cursive;
+			font-size: 18px;
+			color: rgba(0, 0, 0, 0.4); /* Màu đen với độ trong suốt 40% */
+			text-align: center;
+			margin-top: 10px;
+			position: absolute;
+			top: 980px; /* Điều chỉnh vị trí dòng chữ */
+			left: 43%;
+			transform: translateX(-50%);
+			animation: up 3s linear infinite; /* Áp dụng hiệu ứng di chuyển */
+}
+
+        /* Hiệu ứng nhấp nháy mờ */
+        @keyframes fade {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
     </style>
 </head>
 <body>
@@ -278,6 +303,9 @@
     <div class="shadow"></div>
 </div>
 
+
+<div class="hint">Bấm vào thư để mở nhé!</div>
+
 <!-- Thêm phần audio -->
 <audio id="music" loop>
     <source src="lovesongpiano.mp3" type="audio/mpeg">
@@ -288,15 +316,18 @@
 <script>
     $(document).ready(function () {
         const audio = document.getElementById("music");
-
         $('.valentines').click(function () {
+			
             $('.card').toggleClass('open'); // Thêm hoặc xóa class 'open' khi bấm
             
             // Thay đổi nội dung lá thư khi được mở
             if ($('.card').hasClass('open')) {
+				$('.hint').fadeOut();
                 $('.text').html('Chúc cho cô gái mà a yêu luôn xinh đẹp, vui vẻ, thành công. Và gặp thật nhiều may mắn trong cuộc sống. Bao nhiêu hạnh phúc đều là của e. Và chúc mừng e vì 20 tháng 10 này ... đã có được a');
-                audio.play(); // Phát nhạc khi lá thư được mở
+				audio.play(); // Phát nhạc khi lá thư được mở
             } else {
+				
+				$('.hint').fadeIn();
                 $('.text').html('Happy</br> Women\'s</br> Day!');
                 audio.pause(); // Dừng nhạc khi lá thư đóng lại
                 audio.currentTime = 0; // Đặt lại nhạc về ban đầu
