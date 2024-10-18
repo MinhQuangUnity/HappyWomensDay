@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>20-10 Letter</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -72,7 +72,7 @@
 
         .card.open {
             top: -300px; /* Đẩy lá thư ra khỏi phong bì */
-			left: -25px;
+            left: -25px;
             transform: rotateY(180deg); /* Lật ngược lá thư */
             width: 350px; /* Tăng chiều rộng sau khi mở */
             height: 300px; /* Tăng chiều cao sau khi mở */
@@ -96,16 +96,16 @@
         }
 
         .text {
-			font-family: 'Dancing Script', cursive;
-			font-size: 20px;
-			text-align: center;
-			line-height: 22px;
-			color: #003049;
-			transition: transform 1s ease;
-			margin-bottom: 20px;
-			padding-left: 17px; /* Thụt lề trái */
-			padding-right: 17px; /* Thụt lề phải */
-}
+            font-family: 'Dancing Script', cursive;
+            font-size: 20px;
+            text-align: center;
+            line-height: 22px;
+            color: #003049;
+            transition: transform 1s ease;
+            margin-bottom: 20px;
+            padding-left: 17px; /* Thụt lề trái */
+            padding-right: 17px; /* Thụt lề phải */
+        }
 
         .card.open .text {
             transform: rotateY(180deg); /* Lật ngược lại văn bản */
@@ -278,17 +278,28 @@
     <div class="shadow"></div>
 </div>
 
+<!-- Thêm phần audio -->
+<audio id="music" loop>
+    <source src="/QuangDev/lovesongpiano.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        const audio = document.getElementById("music");
+
         $('.valentines').click(function () {
             $('.card').toggleClass('open'); // Thêm hoặc xóa class 'open' khi bấm
             
             // Thay đổi nội dung lá thư khi được mở
             if ($('.card').hasClass('open')) {
                 $('.text').html('Chúc cho cô gái mà a yêu luôn xinh đẹp, vui vẻ, thành công. Và gặp thật nhiều may mắn trong cuộc sống. Bao nhiêu hạnh phúc đều là của e. Và chúc mừng e vì 20 tháng 10 này ... đã có được a');
+                audio.play(); // Phát nhạc khi lá thư được mở
             } else {
                 $('.text').html('Happy</br> Women\'s</br> Day!');
+                audio.pause(); // Dừng nhạc khi lá thư đóng lại
+                audio.currentTime = 0; // Đặt lại nhạc về ban đầu
             }
         });
     });
